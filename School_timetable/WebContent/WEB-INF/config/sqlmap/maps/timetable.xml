@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="timetable">
+	
+	<insert id="addTimeTable" parameterType="map">
+		/* 시간표 등록 */
+		INSERT INTO
+			timetable
+			(
+				member_no
+				, content_1
+				, content_2
+				, content_3
+				, content_4
+				, content_5
+				, content_6
+				, content_7
+				, content_8
+				, content_9
+				, content_10
+				, content_11
+				, content_12
+				, content_13
+				, content_14
+				, content_15
+				, content_16
+				, content_17
+				, content_18
+				, content_19
+				, content_20
+				, content_21
+				, content_22
+				, content_23
+				, content_24
+				, content_25
+				, content_26
+				, content_27
+				, content_28
+				, content_29
+				, content_30
+				, content_31
+				, content_32
+				, content_33
+				, content_34
+				, content_35
+				, content_36
+				, content_37
+				, content_38
+				, content_39
+				, content_40
+				, content_41
+				, content_42
+				, content_43
+				, content_44
+				, content_45
+				, content_46
+				, content_47
+				, content_48
+				, content_49
+				, content_50
+				, content_51
+				, content_52
+				, content_53
+				, content_54
+				, content_55
+				, content_56
+				, content_57
+				, content_58
+				, content_59
+				, content_60
+			)
+		VALUES
+			(
+				#{member_no}
+				, #{content_1}
+				, #{content_2}
+				, #{content_3}
+				, #{content_4}
+				, #{content_5}
+				, #{content_6}
+				, #{content_7}
+				, #{content_8}
+				, #{content_9}
+				, #{content_10}
+				, #{content_11}
+				, #{content_12}
+				, #{content_13}
+				, #{content_14}
+				, #{content_15}
+				, #{content_16}
+				, #{content_17}
+				, #{content_18}
+				, #{content_19}
+				, #{content_20}
+				, #{content_21}
+				, #{content_22}
+				, #{content_23}
+				, #{content_24}
+				, #{content_25}
+				, #{content_26}
+				, #{content_27}
+				, #{content_28}
+				, #{content_29}
+				, #{content_30}
+				, #{content_31}
+				, #{content_32}
+				, #{content_33}
+				, #{content_34}
+				, #{content_35}
+				, #{content_36}
+				, #{content_37}
+				, #{content_38}
+				, #{content_39}
+				, #{content_40}
+				, #{content_41}
+				, #{content_42}
+				, #{content_43}
+				, #{content_44}
+				, #{content_45}
+				, #{content_46}
+				, #{content_47}
+				, #{content_48}
+				, #{content_49}
+				, #{content_50}
+				, #{content_51}
+				, #{content_52}
+				, #{content_53}
+				, #{content_54}
+				, #{content_55}
+				, #{content_56}
+				, #{content_57}
+				, #{content_58}
+				, #{content_59}
+				, #{content_60}	
+			)
+	
+	</insert>
+	
+	<select id="select_timetable" parameterType="map" resultType="map">
+		/*시간표 가져오기*/
+		SELECT
+			*
+		FROM
+			timetable
+		WHERE
+			member_no=#{member_no}				
+	</select>
+	
+	<update id="update_timetable" parameterType="map">
+		/*시간표 업데이트*/
+		UPDATE
+			timetable
+		SET
+			content_1 = #{content_1}
+			, content_2 = #{content_2}
+			, content_3 = #{content_3}
+			, content_4 = #{content_4}
+			, content_5 = #{content_5}
+			, content_6 = #{content_6}
+			, content_7 = #{content_7}
+			, content_8 = #{content_8}
+			, content_9 = #{content_9}
+			, content_10 = #{content_10}
+			, content_11 = #{content_11}
+			, content_12 = #{content_12}
+			, content_13 = #{content_13}
+			, content_14 = #{content_14}
+			, content_15 = #{content_15}
+			, content_16 = #{content_16}
+			, content_17 = #{content_17}
+			, content_18 = #{content_18}
+			, content_19 = #{content_19}
+			, content_20 = #{content_20}
+			, content_21 = #{content_21}
+			, content_22 = #{content_22}
+			, content_23 = #{content_23}
+			, content_24 = #{content_24}
+			, content_25 = #{content_25}
+			, content_26 = #{content_26}
+			, content_27 = #{content_27}
+			, content_28 = #{content_28}
+			, content_29 = #{content_29}
+			, content_30 = #{content_30}
+			, content_31 = #{content_31}
+			, content_32 = #{content_32}
+			, content_33 = #{content_33}
+			, content_34 = #{content_34}
+			, content_35 = #{content_35}
+			, content_36 = #{content_36}
+			, content_37 = #{content_37}
+			, content_38 = #{content_38}
+			, content_39 = #{content_39}
+			, content_40 = #{content_40}
+			, content_41 = #{content_41}
+			, content_42 = #{content_42}
+			, content_43 = #{content_43}
+			, content_44 = #{content_44}
+			, content_45 = #{content_45}
+			, content_46 = #{content_46}
+			, content_47 = #{content_47}
+			, content_48 = #{content_48}
+			, content_49 = #{content_49}
+			, content_50 = #{content_50}
+			, content_51 = #{content_51}
+			, content_52 = #{content_52}
+			, content_53 = #{content_53}
+			, content_54 = #{content_54}
+			, content_55 = #{content_55}
+			, content_56 = #{content_56}
+			, content_57 = #{content_57}
+			, content_58 = #{content_58}
+			, content_59 = #{content_59}
+			, content_60 = #{content_60}
+			WHERE
+				member_no = #{member_no}
+	</update>
+	
+	<delete id="delete_timetable" parameterType="map">
+		/*시간표 삭제*/
+		DELETE FROM
+			timetable
+		WHERE
+			member_no = #{member_no}
+	
+	</delete>
+
+		
+</mapper>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cmd">
+
+	<insert id="insert_board" parameterType="map">
+		/* 게시판 글 등록 */
+		INSERT INTO
+			board
+				(
+					member_no 
+					, title
+					, content
+					, insertDate
+					, img_Name
+					, img_Path
+				)
+			VALUES
+				(
+					#{member_no}
+					, #{title}
+					, #{content}
+					, #{insertDate}
+					, #{img_Name}
+					, #{img_Path}
+				)			
+	</insert>
+	
+	<insert id="insert_board_qa" parameterType="map">
+		INSERT INTO
+			board_qa
+			(
+				member_no
+				, content
+				, insertDate
+			)
+		VALUES
+			(
+				#{member_no}
+				, #{content}
+				, #{insertDate}
+			)
+	</insert>
+	
+	<select id="select_board" parameterType="map" resultType="map">
+		SELECT 
+			a.board_no
+			, a.member_no
+			, a.title
+			, a.content
+			, a.insertDate
+			, a.img_Name
+			, a.img_Path
+			, b.member_name 
+		FROM 
+			board a
+		JOIN
+			timetable_member b
+		ON
+			a.member_no = b.member_no
+		ORDER BY insertDate DESC
+	</select>
+	
+	<select id="select_board_qa" parameterType="map" resultType="map">
+		SELECT 
+			a.qa_no
+			, a.member_no
+			, a.content
+			, a.insertDate
+			, b.member_name
+		FROM 
+			board_qa a
+		JOIN
+			timetable_member b
+		ON
+			a.member_no = b.member_no
+		ORDER BY insertDate DESC
+	</select>
+	
+	<select id="select_board_reply" parameterType="map" resultType="map">
+		SELECT 
+			a.replay_no
+			, a.board_no
+			, a.member_no
+			, a.content
+			, a.insertDate
+			, b.member_name 
+		FROM 
+			board_replay a
+		JOIN
+			timetable_member b
+		ON
+			a.member_no = b.member_no
+		ORDER BY insertDate DESC
+	</select>
+	
+	<select id="select_board_qa_reply" parameterType="map" resultType="map">
+		SELECT 
+			a.replay_no
+			, a.qa_no
+			, a.member_no
+			, a.content
+			, a.insertDate
+			, b.member_name 
+		FROM 
+			board_qa_replay a
+		JOIN
+			timetable_member b
+		ON
+			a.member_no = b.member_no
+		ORDER BY insertDate DESC
+	</select>
+	
+	<insert id="insert_board_replay" parameterType="map">
+		INSERT INTO
+			board_replay
+				(
+					board_no
+					, member_no
+					, content
+					, insertDate
+				)
+			VALUES
+				(
+					#{board_no}
+					, #{member_no}
+					, #{content}
+					, #{insertDate}
+				)
+	</insert>
+	
+	<insert id="insert_board_qa_replay" parameterType="map">
+		INSERT INTO
+			board_qa_replay
+				(
+					qa_no
+					, member_no
+					, content
+					, insertDate
+				)
+			VALUES
+				(
+					#{qa_no}
+					, #{member_no}
+					, #{content}
+					, #{insertDate}
+				)
+	</insert>
+	
+	<select id="select_noticeList" parameterType="map" resultType="map">
+		SELECT
+			*
+		FROM
+			notice
+		WHERE
+			category = #{category}
+		ORDER BY insertDate DESC
+	</select>
+	
+	<select id="select_notice_department_List" parameterType="map" resultType="map">
+		SELECT
+			*
+		FROM
+			notice_department
+		WHERE
+			category = #{category}
+		ORDER BY insertDate DESC
+	</select>
+	
+	<select id="select_notice_no" parameterType="map" resultType="cmd.VO.NoticeVO">
+		SELECT
+			*
+		FROM
+			notice
+		WHERE
+			notice_no = #{notice_no}
+	</select>
+	
+	<select id="select_notice_notice_department_details_no" parameterType="map" resultType="cmd.VO.NoticeVO">
+		SELECT
+			a.notice_no
+			, a.title
+			, a.content
+			, a.insertDate
+			, a.category
+			, b.member_name
+		FROM
+			notice_department a
+		JOIN
+			timetable_member b
+		ON
+			a.member_no = b.member_no
+		WHERE
+			notice_no = #{notice_no}
+	</select>
+	
+	<select id="select_img" parameterType="map" resultType="map">
+		SELECT
+			*
+		FROM
+			img
+		WHERE
+			category=#{category}	
+	</select>
+	
+	<insert id="insert_notice" parameterType="map">
+		/* 학과 공지사항 글 등록 */
+		INSERT INTO
+			notice_department
+				(
+					title
+					, content
+					, insertDate
+					, category
+					, member_no
+				)
+			VALUES
+				(
+					#{title}
+					, #{content}
+					, #{insertDate}
+					, #{category}
+					, #{member_no}
+				)
+			
+	</insert>
+	
+	<delete id="delete_notice_department" parameterType="map">
+		DELETE FROM
+			notice_department
+		WHERE
+			notice_no = #{notice_no}
+	</delete>
+	
+	<update id="update_board" parameterType="map">
+		UPDATE
+			board
+		SET
+			title = #{title}
+			, content = #{content}
+		WHERE
+			board_no = #{board_no}
+	</update>
+	
+	<update id="update_replay" parameterType="map">
+		UPDATE
+			board_replay
+		SET
+			content = #{content}
+		WHERE
+			replay_no = #{replay_no}
+	</update>
+	
+	<delete id="delete_board" parameterType="map">
+		DELETE FROM
+			board
+		WHERE
+			board_no = #{board_no}	
+	</delete>
+	
+	<delete id="delete_replay" parameterType="map">
+		DELETE FROM
+			board_replay
+		WHERE
+			replay_no = #{replay_no}
+	</delete>
+	
+	
+		
+	<update id="update_qa_board" parameterType="map">
+		UPDATE
+			board_qa
+		SET
+			content = #{content}
+		WHERE
+			qa_no = #{qa_no}
+	</update>
+	
+	<update id="update_qa_replay" parameterType="map">
+		UPDATE
+			board_qa_replay
+		SET
+			content = #{content}
+		WHERE
+			replay_no = #{replay_no}
+	</update>
+	
+	<delete id="delete_qa_board" parameterType="map">
+		DELETE FROM
+			board_qa
+		WHERE
+			qa_no = #{qa_no}	
+	</delete>
+	
+	<delete id="delete_qa_replay" parameterType="map">
+		DELETE FROM
+			board_qa_replay
+		WHERE
+			replay_no = #{replay_no}
+	</delete>
+	
+	
+	
+</mapper>

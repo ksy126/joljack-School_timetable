@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<insert id="insert_notice" parameterType="map">
+		/* 공지사항 글 등록 */
+		INSERT INTO
+			notice
+				(
+					title
+					, content
+					, insertDate
+					, category
+				)
+			VALUES
+				(
+					#{title}
+					, #{content}
+					, #{insertDate}
+					, #{category}
+				)
+			
+	</insert>
+	
+	<update id="update_img" parameterType="map">
+	UPDATE
+		img
+	SET
+		img_Name = #{img_Name}
+		, img_Path = #{img_Path}
+	WHERE
+		category = #{category}
+		
+		
+	</update>
+	
+	<select id="select_noticeList" parameterType="map" resultType="map">
+		SELECT
+			*
+		FROM
+			notice
+		ORDER BY insertDate DESC
+	</select>
+	
+	<delete id="delete_notice"  parameterType="map">
+		DELETE FROM
+			notice
+		WHERE
+			notice_no = #{notice_no}
+	</delete>
+	
+	<update id="modify_notice" parameterType="map">
+		UPDATE
+			notice
+		SET
+			title = #{title}
+			, content = #{content}
+		WHERE
+			notice_no = #{notice_no}
+	</update>
+</mapper>
