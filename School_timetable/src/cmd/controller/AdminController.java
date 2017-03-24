@@ -57,8 +57,22 @@ public class AdminController{
     }
     
     @RequestMapping("/img_schedule.do")
-    public String img_schedule(){
-    	return "admin/img_schedule";
+    public ModelAndView img_schedule(){
+    	List<Object> imgList = null;
+    	imgList = adminService.scheduleImgList();
+    	System.out.println(imgList);
+    	ModelAndView mav = new ModelAndView("admin/img_schedule");
+    	mav.addObject("imgList", imgList);
+    	return mav;
+    }
+    
+    
+    @RequestMapping("/schedule_img_delete.do")
+    public ModelAndView schedule_img_delete(@RequestParam Map<String, Object> map){
+    	adminService.schedule_img_delete(map);
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName("jsonView");
+    	return mav;
     }
     
     //

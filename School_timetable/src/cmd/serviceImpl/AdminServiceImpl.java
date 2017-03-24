@@ -35,7 +35,12 @@ public class AdminServiceImpl implements AdminService {
 	public void update_img(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		try {
-			this.commonDao.updateData("admin.update_img", map);
+			if(map.get("category").equals("02")){
+				this.commonDao.updateData("admin.update_img_schedual", map);
+			} else {
+				this.commonDao.updateData("admin.update_img", map);
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,5 +83,31 @@ public class AdminServiceImpl implements AdminService {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public List<Object> scheduleImgList() {
+		// TODO Auto-generated method stub
+		List<Object> result = null;
+				
+		try {
+			result = this.commonDao.getListData("admin.selectScheduleImgList");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void schedule_img_delete(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		try {
+			this.commonDao.updateData("admin.schedule_img_delete", pMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

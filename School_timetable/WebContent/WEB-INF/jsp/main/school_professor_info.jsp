@@ -31,7 +31,7 @@ function img_expand(){
 </script>
 </head>
 <body>
-<div data-role="page" style=" background-color: #e3e3e3;">
+<div data-role="page" style=" background-color: #fff;">
 
 	<input type="hidden" value="${sessionScope.sessionData.memberInfo.getMember_no()}" id="member_no">
 
@@ -42,7 +42,7 @@ function img_expand(){
 
 	<div data-role="main" class="ui-content" align="center" onclick="img_expand()">
 		<input type="hidden" value="../img/school_02.jpg" id="img_src">
-		<img src="../img/school_02.jpg" width="90%">	
+		<img src="../img/school_02.jpg" style="width: 100%">	
 	</div> 
 </div>
 </body>

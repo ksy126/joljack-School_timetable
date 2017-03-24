@@ -24,16 +24,42 @@
 	</insert>
 	
 	<update id="update_img" parameterType="map">
-	UPDATE
-		img
-	SET
-		img_Name = #{img_Name}
-		, img_Path = #{img_Path}
-	WHERE
-		category = #{category}
-		
-		
+		UPDATE
+			img
+		SET
+			img_Name = #{img_Name}
+			, img_Path = #{img_Path}
+		WHERE
+			category = #{category}
 	</update>
+	
+	<insert id="update_img_schedual" parameterType="map">
+		INSERT 
+			INTO schedule_img
+			(
+				img_Name
+				, img_Path				
+			)
+		VALUES
+			(
+				#{img_Name}
+				, #{img_Path}
+			)
+	</insert>
+	
+	<select id="selectScheduleImgList" resultType="map">
+		SELECT
+			*
+		FROM
+			schedule_img
+	</select>
+	
+	<delete id="schedule_img_delete" parameterType="map">
+		DELETE FROM
+			schedule_img
+		WHERE
+			img_no = #{img_no}
+	</delete>
 	
 	<select id="select_noticeList" parameterType="map" resultType="map">
 		SELECT

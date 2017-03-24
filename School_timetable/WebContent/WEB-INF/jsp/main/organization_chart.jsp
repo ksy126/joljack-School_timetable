@@ -31,7 +31,7 @@ function img_expand(){
 </script>
 </head>
 <body>
-<div data-role="page" style=" background-color: #e3e3e3;">
+<div data-role="page" style=" background-color: #fff;">
 
 	<input type="hidden" value="${sessionScope.sessionData.memberInfo.getMember_no()}" id="member_no">
 

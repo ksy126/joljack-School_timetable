@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%  
 	String cp = request.getContextPath();
 %>
@@ -56,14 +57,13 @@
 	});//end document
 	
 	//저장전 유효성검사 및 파일업로드
-	function Sym_save(){		
+	function Sym_save(){
 		var file = $('#file').val();
 		if( file == '' || file == 'undefined'){
 			
 		} else {
 			var frm = $( '#file_upload');
 			save_file(frm);
-			alert(frm);
 			return false;
 		}
 	}
@@ -154,6 +154,28 @@
   		}
   	}
   	
+	function deleteImg(img_no) {
+		var params = "img_no="+img_no;
+		var url = "/admin/schedule_img_delete.do";
+		$.ajax({
+            type        : "POST" 
+          , async       : true
+          , url         : url
+          , data        : params
+          , dataType    : "json"
+          , timeout     : 30000  
+          , cache       : false    
+          //, contentType : "application/x-www-form- urlencoded;charset=UTF-8"
+          , error       : function(request, status, error) {
+              alert( "작업 도중 오류가 발생하였습니다. 자세한 사항은 고객센터에 문의하십시오." );       
+          }
+          , success     : function(data) {
+			alert("이미지 삭제 완료");
+			location.reload();
+          }
+		});
+	}
+	
   </script>
   
 </head>
@@ -189,6 +211,15 @@
 	<div style="margin-top: 3em;">
   		<input type="button" value="등록" class="btn btn-danger" onclick="Sym_save()">
   	</div>
+  
+      <div class="row" style="margin-top: 3em;">
+    	<c:forEach var="row" items="${imgList}">
+	        <div class="col-md-3 img-portfolio" onclick="deleteImg('${row.img_no}')" style="border: solid 1px black;">
+	            <img class="img-responsive img-hover"  src="/upload/img/school/${row.img_Name}" alt="">
+	        </div>
+        </c:forEach>
+    </div>
+  
   </div>
 </div>
 

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.xml.MarshallingView;
 
 import cmd.VO.MemberVO;
 import cmd.VO.NoticeVO;
+import cmd.service.AdminService;
 import cmd.service.CmdService;
 import helper.util.FileUtil;
 
@@ -32,32 +33,34 @@ public class CmdController{
 	
 	@Resource(name="cmd.CmdService")
 	private CmdService cmdService;
+	@Resource(name="cmd.AdminService")
+	private AdminService adminService;
 	
     private final static Log logger = LogFactory.getLog(CmdController.class);   
     
     
-    //·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿
+    //ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/login.do")
     public ModelAndView login(@RequestParam Map<String, Object> map){
     	ModelAndView mav = new ModelAndView("main/login");
     	return mav;
     }
     
-    //ÇÐ°ú ¼Ò°³ ÆäÀÌÁö ÀÌµ¿
+    //ï¿½Ð°ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/move_school_introduce.do")
     public ModelAndView move_school_introduce(@RequestParam Map<String, Object> map){
     	ModelAndView mav = new ModelAndView("main/school_department_introduction");
     	return mav;
     }
     
-    //±³¼ö´Ô ¼Ò°³ ÆäÀÌÁö ÀÌµ¿
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/school_professor_info.do")
     public ModelAndView school_professor_info(@RequestParam Map<String, Object> map){
     	ModelAndView mav = new ModelAndView("main/school_professor_info");
     	return mav;
     }
     
-    //ÇÐ»ýÈ¸ Á¶Á÷µµ ÀÌµ¿
+    //ï¿½Ð»ï¿½È¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/organization_chart.do")
     public ModelAndView organization_chart(@RequestParam Map<String, Object> map){
     	map.put("category", "01");
@@ -68,45 +71,45 @@ public class CmdController{
     	return mav;
     }
     
-    //ÇÐ»ç ÀÏÁ¤ ÀÌµ¿
+    //ï¿½Ð»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/department_schedule.do")
     public ModelAndView department_schedule(@RequestParam Map<String, Object> map){
-    	map.put("category", "02");
-    	Map<String, Object> img = new HashMap<>();
-    	img = (Map<String, Object>) cmdService.select_img(map);
+    	List<Object> imgList = null;
+    	imgList = adminService.scheduleImgList();
+    	System.out.println(imgList);
     	ModelAndView mav = new ModelAndView("main/school_schedule");
-    	mav.addObject("img", img);
+    	mav.addObject("imgList", imgList);
     	return mav;
     }
     
-    //ÇÐ°ú °øÁö ÀÌµ¿
+    //ï¿½Ð°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/school_notice.do")
     public ModelAndView school_notice(@RequestParam Map<String, Object> map){  
     	ModelAndView mav = new ModelAndView("main/school_notice");
     	return mav;
     }
     
-    //°Ô½ÃÆÇ ÀÌµ¿ 
+    //ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ 
     @RequestMapping("/school_board.do")
     public ModelAndView school_board(@RequestParam Map<String, Object> map){
     	ModelAndView mav = new ModelAndView("main/school_board");
     	return mav;
     }
     
-    //°Ô½ÃÆÇ ÀÌµ¿ 
+    //ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ 
     @RequestMapping("/school_board_qa.do")
     public ModelAndView school_board_qa(@RequestParam Map<String, Object> map){
     	ModelAndView mav = new ModelAndView("main/school_board_qa");
     	return mav;
     }
     
-    //¸ÞÀÎ ÆäÀÌÁö ÀÌµ¿
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/main.do")
     public String main(){      	    
     	return "main/main";
     }
     
-    //°³ÀÎÁ¤º¸ ÀÌµ¿
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/school_personal_information.do")
     public ModelAndView school_personal_information(@RequestParam Map<String, Object> map){
     	MemberVO memberVo = null;
@@ -152,7 +155,7 @@ public class CmdController{
     	if(memberVo.getCheck() != "no"){
     		HttpSession session = req.getSession(true);
     		
-    		//¼¼¼Çµî·Ï
+    		//ï¿½ï¿½ï¿½Çµï¿½ï¿½
     		rMap.put("memberInfo", memberVo);
     		session.setAttribute("sessionData", rMap);
     		session.setAttribute("member_no", memberVo.getMember_no());
@@ -192,7 +195,7 @@ public class CmdController{
 		return mav;
 	}
    
-    //°Ô½ÃÆÇ ±Û µî·Ï 
+    //ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ 
     @RequestMapping("/insert_boardList.do")
     public ModelAndView insert_boardList(@RequestParam Map<String, Object> map){
     	cmdService.insert_boardList(map);
@@ -201,7 +204,7 @@ public class CmdController{
 		return mav;
 	}
     
-    //°Ô½ÃÆÇ ±Û µî·Ï 
+    //ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ 
     @RequestMapping("/insert_board_qa.do")
     public ModelAndView insert_board_qa(@RequestParam Map<String, Object> map){
     	cmdService.insert_board_qa(map);
@@ -210,7 +213,7 @@ public class CmdController{
 		return mav;
 	}
     
-    //°Ô½ÃÆÇ ±Û °¡Á®¿À±â 
+    //ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
     @RequestMapping("/select_boardList.do")
     public ModelAndView select_boardList(@RequestParam Map<String, Object> map){
     	List<Object> list = null;
@@ -238,7 +241,7 @@ public class CmdController{
 		return mav;
 	}
     
-    //´ñ±Û µî·Ï 
+    //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
     @RequestMapping("/insert_board_replay.do")
     public ModelAndView insert_board_replay(@RequestParam Map<String, Object> map){
     	cmdService.insert_board_replay(map);
@@ -300,7 +303,7 @@ public class CmdController{
 		return mav;
 	}
     
-    // ºñ¹Ð¹øÈ£ º¯°æ
+    // ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
     @RequestMapping("/update_member_pwd.do")
     public ModelAndView update_member_pwd(@RequestParam Map<String, Object> map){
     	cmdService.update_member(map);
@@ -318,7 +321,7 @@ public class CmdController{
     	return mav;
     }
     
-    //»èÁ¦ 
+    //ï¿½ï¿½ï¿½ï¿½ 
     @RequestMapping("/delete_notice_department.do")
     public ModelAndView delete_notice_department(@RequestParam Map<String, Object> map){
     	cmdService.delete_notice_department(map);
@@ -326,7 +329,7 @@ public class CmdController{
     	return mav;
     }
     
-    //ÀÌ¹ÌÁö È®´ë ÆäÀÌÁö ÀÌµ¿
+    //ï¿½Ì¹ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     @RequestMapping("/img_expand.do")
     public ModelAndView img_expand(@RequestParam Map<String, Object> map){
     	ModelAndView mav = new ModelAndView("main/img_expand");
@@ -407,7 +410,7 @@ public class CmdController{
     }
     
 	/**
-	 * ¾÷Ã¼ÆÄÀÏ¾÷·Îµå
+	 * ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Îµï¿½
 	 * 
 	 * @param req
 	 * @param res
@@ -435,7 +438,7 @@ public class CmdController{
 			String orgName = (String) pMap.get("fileNewName");
 			String destination = (String) pMap.get("destination");
 
-			System.out.println(" * ÀÓ½Ã ÆÄÀÏ °æ·Î : " + destination);
+			System.out.println(" * ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : " + destination);
 
 			if (!orgName.equals("") && !fileUploadPath.equals("")) {
 				String temp_file_ext = orgName.substring(orgName.lastIndexOf(".") + 1);
@@ -447,8 +450,8 @@ public class CmdController{
 				// System.gc();
 				FileUtil.moveFile(temp_total_path, fileDestPath, newName);
 
-				System.out.println(" * »õ·Î ÀúÀåµÈ ÆÄÀÏ °æ·Î : " + fileDestPath);
-				System.out.println(" * »õ·Î ÀúÀåµÈ ÆÄÀÏ ÀÌ¸§ : " + newName);
+				System.out.println(" * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : " + fileDestPath);
+				System.out.println(" * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ : " + newName);
 
 				rMap.put("fileUploadPath", fileDestPath);
 				rMap.put("fileNewName", newName);

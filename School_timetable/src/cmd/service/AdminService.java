@@ -13,5 +13,9 @@ public interface AdminService {
 	
 	public List<Object> select_noticeList(Map<String, Object> pMap);
 	
+	public List<Object> scheduleImgList();
+	
 	public void delete_notice(Map<String, Object> pMap);
+	
+	public void schedule_img_delete(Map<String, Object> pMap);
 }

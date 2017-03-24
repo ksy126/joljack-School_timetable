@@ -63,7 +63,6 @@
 		} else {
 			var frm = $( '#file_upload');
 			save_file(frm);
-			alert(frm);
 			return false;
 		}
 	}

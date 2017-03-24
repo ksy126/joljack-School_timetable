@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/cmd/controller/CmdController.java=UTF-8
 encoding//src/cmd/controller/CommController.java=UTF-8
 encoding//src/helper/util/FileUtil.java=UTF-8
 encoding//src/helper/util/ThumbnailImageMakeHelper.java=UTF-8
